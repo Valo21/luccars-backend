@@ -68,6 +68,15 @@ public class ProductService {
     return true;
   }
 
+  public Boolean deleteMany(List<UUID> productIds) {
+    if (productIds == null || productIds.isEmpty()) {
+      throw new IllegalArgumentException("Product IDs list cannot be empty");
+    }
+
+    productRepository.deleteAllByIdInBatch(productIds);
+    return true;
+  }
+
   private <T> void updateIfNotNull(T value, Consumer<T> setter) {
     if (value != null) {
       setter.accept(value);

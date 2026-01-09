@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +43,12 @@ public class ProductController {
       HttpServletResponse response) {
     Product product = productService.create(productCreateDTO);
     return ResponseHelper.success(product, "Product created successfully");
+  }
+
+  @DeleteMapping
+  public ResponseEntity<AppResponseDTO<Boolean>> deleteMany(@RequestBody List<UUID> productIds) {
+    Boolean deleted = productService.deleteMany(productIds);
+    return ResponseHelper.success(deleted, "Products deleted successfully");
   }
 
   @GetMapping("/{id}")
