@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: luccars
+    version: 1.0.0
+  datasource:
+    url: jdbc:postgresql://localhost:5432/luccars
+    name: luccars
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        transaction:
+          jta:
+            platform: true
+
+
+jwt:
+  secret: MySuperLongSuperSecureSecretKeyThatIsAtLeast32Chars!
+  expiration: 3600000
