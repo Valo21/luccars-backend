@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.util.UUID;
 
+// TODO [GH] Implement User Profile services and controllers
+
 @Entity()
 @Table(name = "user_profiles")
 @Data

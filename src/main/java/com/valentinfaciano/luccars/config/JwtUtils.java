@@ -31,6 +31,7 @@ public class JwtUtils {
         claims.put("email", user.getEmail());
         claims.put("userId", user.getId());
         claims.put("emailVerified", user.getEmailVerified());
+        // TODO [GH] Integrate user profile data in JWT token
 
         return Jwts.builder()
                 .setSubject(user.getEmail())
