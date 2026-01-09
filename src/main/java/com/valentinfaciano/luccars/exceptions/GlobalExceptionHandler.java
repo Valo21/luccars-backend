@@ -1,4 +1,4 @@
-package com.valentinfaciano.luccars.exception;
+package com.valentinfaciano.luccars.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,5 +54,13 @@ public class GlobalExceptionHandler {
                 List.of(ex.getMessage()),
                 "Invalid password",
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(RoleNotFound.class)
+    public ResponseEntity<AppResponseDTO<String>> handleRoleNotFound(RoleNotFound ex) {
+        return ResponseHelper.error(
+                List.of(ex.getMessage()),
+                "Role not found",
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -1,4 +1,4 @@
-package com.valentinfaciano.luccars.exception;
+package com.valentinfaciano.luccars.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
   public UserNotFoundException(String message) {

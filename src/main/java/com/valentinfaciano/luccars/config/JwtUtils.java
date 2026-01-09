@@ -3,6 +3,8 @@ package com.valentinfaciano.luccars.config;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.valentinfaciano.luccars.features.user.entity.User;
@@ -10,6 +12,7 @@ import com.valentinfaciano.luccars.features.user.entity.User;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -27,10 +30,16 @@ public class JwtUtils {
 
     // Generate token
     public String generateJwtToken(User user) {
+        List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
+                .flatMap(role -> role.getPermissions().stream())
+                .map(permission -> new SimpleGrantedAuthority(permission.getName().name()))
+                .toList();
+
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", user.getEmail());
         claims.put("userId", user.getId());
         claims.put("emailVerified", user.getEmailVerified());
+        claims.put("permissions", authorities);
         // TODO [GH] Integrate user profile data in JWT token
 
         return Jwts.builder()
@@ -42,7 +51,12 @@ public class JwtUtils {
                 .compact();
     }
 
-    public Claims getUserEmailFromJwtToken(String token) {
+    public String getUserEmailFromJwtToken(String token) {
+        Claims claims = getUserClaimsFromJwtToken(token);
+        return claims.get("email", String.class);
+    }
+
+    public Claims getUserClaimsFromJwtToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()
