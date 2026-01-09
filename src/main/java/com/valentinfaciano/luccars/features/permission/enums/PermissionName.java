@@ -5,6 +5,7 @@ public enum PermissionName {
   PRODUCT_CREATE,
   PRODUCT_EDIT,
   PRODUCT_DELETE,
+  ORDER_CREATE,
   USER_VIEW,
   USER_MANAGE
 }
