@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.valentinfaciano.luccars.features.product.exceptions.ProductNotFoundException;
 import com.valentinfaciano.luccars.shared.dto.AppResponseDTO;
 import com.valentinfaciano.luccars.shared.dto.ResponseHelper;
 
@@ -62,5 +63,13 @@ public class GlobalExceptionHandler {
                 List.of(ex.getMessage()),
                 "Role not found",
                 HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<AppResponseDTO<String>> handleProductNotFound(ProductNotFoundException ex) {
+        return ResponseHelper.error(
+                List.of(ex.getMessage()),
+                "Product not found",
+                HttpStatus.NOT_FOUND);
     }
 }
