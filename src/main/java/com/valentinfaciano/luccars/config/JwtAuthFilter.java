@@ -47,7 +47,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                 permission.getName().name()))
                         .toList();
 
-                System.out.println(authorities);
+                System.out.println("authorities: " + authorities);
 
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         user, null, authorities);

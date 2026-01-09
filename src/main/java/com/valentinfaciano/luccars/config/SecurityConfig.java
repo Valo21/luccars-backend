@@ -30,6 +30,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/products/**").hasAuthority("PRODUCT_CREATE")
             .requestMatchers(HttpMethod.PUT, "/products/**").hasAuthority("PRODUCT_EDIT")
             .requestMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("PRODUCT_DELETE")
+            .requestMatchers(HttpMethod.POST, "/orders/**").hasAuthority("ORDER_CREATE")
 
             .anyRequest().authenticated())
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

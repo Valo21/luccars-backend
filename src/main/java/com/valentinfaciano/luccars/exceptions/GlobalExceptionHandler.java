@@ -7,7 +7,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.valentinfaciano.luccars.features.order.exceptions.NotEnoughStockException;
 import com.valentinfaciano.luccars.features.product.exceptions.ProductNotFoundException;
+import com.valentinfaciano.luccars.features.user.exceptions.UserProfileNotFoundException;
 import com.valentinfaciano.luccars.shared.dto.AppResponseDTO;
 import com.valentinfaciano.luccars.shared.dto.ResponseHelper;
 
@@ -70,6 +72,22 @@ public class GlobalExceptionHandler {
         return ResponseHelper.error(
                 List.of(ex.getMessage()),
                 "Product not found",
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserProfileNotFoundException.class)
+    public ResponseEntity<AppResponseDTO<String>> handleUserProfileNotFound(UserProfileNotFoundException ex) {
+        return ResponseHelper.error(
+                List.of(ex.getMessage()),
+                "User profile not found",
+                HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NotEnoughStockException.class)
+    public ResponseEntity<AppResponseDTO<String>> handleNotEnoughStock(NotEnoughStockException ex) {
+        return ResponseHelper.error(
+                List.of(ex.getMessage()),
+                "Not enough stock for product",
                 HttpStatus.NOT_FOUND);
     }
 }

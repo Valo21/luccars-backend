@@ -12,6 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import com.valentinfaciano.luccars.features.product.enums.ProductCategory;
 import com.valentinfaciano.luccars.features.vehicle.enums.VehicleType;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public class Product {
     private String name;
 
     @Column(nullable = false)
-    private Float price;
+    private BigDecimal price;
 
     @Column(nullable = false)
     @Builder.Default

@@ -1,6 +1,7 @@
 package com.valentinfaciano.luccars.features.user;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,14 @@ public class UserService {
     Optional<User> user = userRepository.findByEmail(email);
     if (user.isEmpty()) {
       throw new UserNotFoundException("User with email " + email + " not found");
+    }
+    return user.get();
+  }
+
+  public User findById(UUID userId) {
+    Optional<User> user = userRepository.findById(userId);
+    if (user.isEmpty()) {
+      throw new UserNotFoundException("User with id " + userId + " not found");
     }
     return user.get();
   }

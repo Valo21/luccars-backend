@@ -1,5 +1,7 @@
 package com.valentinfaciano.luccars.features.product.dto;
 
+import java.math.BigDecimal;
+
 import com.valentinfaciano.luccars.features.product.enums.ProductCategory;
 import com.valentinfaciano.luccars.features.vehicle.enums.VehicleType;
 import jakarta.validation.constraints.Min;
@@ -11,7 +13,7 @@ public class ProductUpdateDTO {
   private String name;
 
   @Min(value = 0, message = "Price must be greater than or equal to 0")
-  private Float price;
+  private BigDecimal price;
 
   @Min(value = 0, message = "Stock must be greater than or equal to 0")
   private Integer stock;

@@ -6,10 +6,12 @@ import com.valentinfaciano.luccars.features.role.enums.RoleName;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Order(2)
 public class RoleInitializer implements CommandLineRunner {
 
   private final RoleRepository roleRepository;

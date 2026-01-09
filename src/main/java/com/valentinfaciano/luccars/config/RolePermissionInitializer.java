@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.valentinfaciano.luccars.exceptions.RoleNotFound;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
+@Order(3)
 public class RolePermissionInitializer implements CommandLineRunner {
 
   private final RoleRepository roleRepository;
@@ -31,7 +33,8 @@ public class RolePermissionInitializer implements CommandLineRunner {
     Map<RoleName, List<PermissionName>> rolePermissionsMap = new HashMap<>();
 
     rolePermissionsMap.put(RoleName.USER, List.of(
-        PermissionName.PRODUCT_VIEW));
+        PermissionName.PRODUCT_VIEW,
+        PermissionName.ORDER_CREATE));
 
     List<PermissionName> adminPermissions = new ArrayList<>(rolePermissionsMap.get(RoleName.USER));
     adminPermissions.addAll(List.of(
