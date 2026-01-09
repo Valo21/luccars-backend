@@ -1,0 +1,18 @@
+name: Create TODO issues
+on: [push]
+
+jobs:
+  create-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Scan for TODOs and create issues
+        run: |
+          grep -r "// TODO \[GH\]" src/ | while read line ; do
+            title=$(echo $line | cut -d':' -f2)
+            curl -H "Authorization: token $GITHUB_TOKEN" \
+                 -d "{\"title\":\"$title\"}" \
+                 https://api.github.com/repos/username/repo/issues
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
